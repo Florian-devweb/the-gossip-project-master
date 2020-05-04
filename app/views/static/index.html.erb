@@ -1,0 +1,16 @@
+<% gosips=Gosip.all %>
+<% gosips.each do |gosip| %>
+<% user = User.find_by(id: gosip.user_id) %>
+<% city = (City.find_by(id: user.city_id))%>
+<div class="container-flex">
+<div class="card" >
+  <div class="card-body">
+    <h5 class="card-title"><%= gosip.title %></h5>
+    <h6 class="card-subtitle mb-2 text-muted"><a href="#" class="card-link"><%= link_to "#{user.first_name} #{user.last_name}", "/user/#{user.id}" %></a></h6>
+    <p class="card-text"><%= gosip.content %></p>
+    City : <a href="#" class="card-link"><%= link_to "#{city.name} ", "/city/#{city.id}" %></a><br/>
+    Gossip : <a href="#" class="card-link"><%= link_to "#{gosip.id}", "/gosip/#{gosip.id}" %></a><br/>
+  </div>
+</div>
+</div>
+<% end %>

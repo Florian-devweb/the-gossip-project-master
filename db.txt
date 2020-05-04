@@ -1,0 +1,6 @@
+nameatt att2 att3 att4 att5 att6 relation
+User firt_name:string last_name:string description:texte email:string age:integer city_id:integer
+City name:string zip_code:string
+Gosip title:string content:text
+Tag title:string
+PrivateMessage content:text

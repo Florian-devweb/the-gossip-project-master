@@ -1,0 +1,95 @@
+<% gosip=Gosip.find_by(id: @gosip.id)  %>
+<% user = User.find_by(id: gosip.user_id) %>
+
+
+<% if @gosip.id>1 && @gosip.id < Gosip.all.count%>
+<% previous_g = @gosip.id-1  %>
+<% next_g = @gosip.id+1  %>
+<% previous_gosip=Gosip.find_by(id: previous_g)  %>
+<% previous_user = User.find_by(id: previous_gosip.user_id) %>
+
+<% next_gosip=Gosip.find_by(id: next_g)  %>
+<% next_user = User.find_by(id: next_gosip.user_id) %>
+
+<% elsif @gosip.id < Gosip.all.count %> 
+<% previous_g = @gosip.id-1  %>
+<% next_g = @gosip.id+1  %>
+<% previous_gosip=Gosip.last  %>
+<% previous_user = User.find_by(id: previous_gosip.user_id) %>
+<% next_gosip=Gosip.find_by(id: next_g)  %>
+<% next_user = User.find_by(id: next_gosip.user_id) %>
+
+<% end %>
+
+
+<% if @gosip.id>1 && @gosip.id < Gosip.all.count %>
+<% previous_g = @gosip.id-1  %>
+<% next_g = @gosip.id+1  %>
+<% previous_gosip=Gosip.find_by(id: previous_g)  %>
+<% previous_user = User.find_by(id: previous_gosip.user_id) %>
+<% next_gosip=Gosip.find_by(id: next_g)  %>
+<% next_user = User.find_by(id: next_gosip.user_id) %>
+<% elsif @gosip.id>1  %> 
+<% previous_g = @gosip.id-1  %>
+<% previous_gosip=Gosip.find_by(id: previous_g) %>
+<% previous_user = User.find_by(id: previous_gosip.user_id) %>
+<% next_gosip=Gosip.first %>
+<% next_user = User.find_by(id: next_gosip.user_id) %>
+<% end %>
+
+<% city = (City.find_by(id: user.city_id))%>
+<% previous_city = (City.find_by(id: previous_user.city_id))%>
+<% next_city = (City.find_by(id: next_user.city_id))%>
+
+
+
+
+
+
+
+
+<div class="card-deck">
+  <div class="card" style="height: 35rem;">
+    <div class="card-body">
+      <h5 class="card-title"><%= previous_gosip.title %></h5><br/>
+      <h6 class="card-subtitle">User : <%= link_to "#{previous_user.first_name} #{previous_user.last_name} ", "/user/#{previous_user.id}" %></h6><br/>
+      <h6 class="card-subtitle">City : <%= link_to "#{previous_city.name} ", "/city/#{previous_city.id}" %></h6><br/>
+      <p class="card-text"><%= previous_gosip.content %></p>
+      
+    </div>
+    <div class="card-footer ">
+      <small class="text-muted"><%= previous_gosip.updated_at %></small>
+    </div>
+    
+  </div>
+  <div class="card" style="height: 35rem;">
+    <div class="card-body">
+      <h5 class="card-title"><%= gosip.title %></h5><br/>
+      <h6 class="card-subtitle">User : <%= link_to "#{user.first_name } #{next_user.last_name}", "/user/#{user.id}" %></h6><br/>
+      <h6 class="card-subtitle">City : <%= link_to "#{city.name} ", "/city/#{city.id}" %></h6><br/>
+      <p class="card-text"><%= gosip.content %></p>
+    </div>
+    <div class="card-footer">
+      <small class="text-muted"><%= gosip.updated_at %></small>
+    </div>
+  </div>
+  <div class="card" style="height: 35rem;">
+    <div class="card-body">
+      <h5 class="card-title"><%= next_gosip.title %></h5><br/>
+      <h6 class="card-subtitle">User : <%= link_to "#{next_user.first_name} #{next_user.last_name} ", "/user/#{next_user.id}" %></h6><br/>
+      <h6 class="card-subtitle">City : <%= link_to "#{next_city.name} ", "/city/#{next_city.id}" %></h6><br/>
+      <p class="card-text"><%= next_gosip.content %></p>
+    </div>
+    <div class="card-footer">
+      <small class="text-muted"><%= next_gosip.updated_at %></small>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="d-flex flex-row justify-content-center">
+  <div class="p-2"><a href="#" class="card-link"><%= link_to "previous", "/gosip/#{previous_gosip.id}" %></a></div>
+  <div class="p-2"><a href="#" class="card-link"><%= link_to "next", "/gosip/#{next_gosip.id}" %></a></div>
+</div>
+
